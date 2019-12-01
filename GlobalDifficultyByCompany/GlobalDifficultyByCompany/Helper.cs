@@ -49,53 +49,53 @@ namespace GlobalDifficultyByCompany {
         }
 
         // Capitals by faction
-        private static Dictionary<Faction, string> capitalsByFaction = new Dictionary<Faction, string> {
-            { Faction.Kurita, "Luthien" },
-            { Faction.Davion, "New Avalon" },
-            { Faction.Liao, "Sian" },
-            { Faction.Marik, "Atreus (FWL)" },
-            { Faction.Rasalhague, "Rasalhague" },
-            { Faction.Ives, "St. Ives" },
-            { Faction.Oberon, "Oberon" },
-            { Faction.TaurianConcordat, "Taurus" },
-            { Faction.MagistracyOfCanopus, "Canopus" },
-            { Faction.Outworld, "Alpheratz" },
-            { Faction.Circinus, "Circinus" },
-            { Faction.Marian, "Alphard (MH)" },
-            { Faction.Lothian, "Lothario" },
-            { Faction.AuriganRestoration, "Coromodir" },
-            { Faction.Steiner, "Tharkad" },
-            { Faction.ComStar, "Terra" },
-            { Faction.Castile, "Asturias" },
-            { Faction.Chainelane, "Far Reach" },
-            { Faction.ClanBurrock, "Albion (Clan)" },
-            { Faction.ClanCloudCobra, "Zara (Homer 2850+)" },
-            { Faction.ClanCoyote, "Tamaron" },
-            { Faction.ClanDiamondShark, "Strato Domingo" },
-            { Faction.ClanFireMandrill, "Shadow" },
-            { Faction.ClanGhostBear, "Arcadia (Clan)" },
-            { Faction.ClanGoliathScorpion, "Dagda (Clan)" },
-            { Faction.ClanHellsHorses, "Kirin" },
-            { Faction.ClanIceHellion, "Hector" },
-            { Faction.ClanJadeFalcon, "Ironhold" },
-            { Faction.ClanNovaCat, "Barcella" },
-            { Faction.ClansGeneric, "Strana Mechty" },
-            { Faction.ClanSmokeJaguar, "Huntress" },
-            { Faction.ClanSnowRaven, "Lum" },
-            { Faction.ClanStarAdder, "Sheridan (Clan)" },
-            { Faction.ClanSteelViper, "New Kent" },
-            { Faction.ClanWolf, "Tiber (Clan)" },
-            { Faction.Delphi, "New Delphi" },
-            { Faction.Elysia, "Blackbone (Nyserta 3025+)" },
-            { Faction.Hanse, "Bremen (HL)" },
-            { Faction.JarnFolk, "Trondheim (JF)" },
-            { Faction.Tortuga, "Tortuga Prime" },
-            { Faction.Valkyrate, "Gotterdammerung" },
-            { Faction.Axumite, "Thala" }
-            //,{ Faction.WordOfBlake, "Hope (Randis 2988+)" }
+        private static Dictionary<string, string> capitalsByFaction = new Dictionary<string, string> {
+            { "Kurita", "Luthien" },
+            { "Davion", "New Avalon" },
+            { "Liao", "Sian" },
+            { "Marik", "Atreus (FWL)" },
+            { "Rasalhague", "Rasalhague" },
+            { "Ives", "St. Ives" },
+            { "Oberon", "Oberon" },
+            { "TaurianConcordat", "Taurus" },
+            { "MagistracyOfCanopus", "Canopus" },
+            { "Outworld", "Alpheratz" },
+            { "Circinus", "Circinus" },
+            { "Marian", "Alphard (MH)" },
+            { "Lothian", "Lothario" },
+            { "AuriganRestoration", "Coromodir" },
+            { "Steiner", "Tharkad" },
+            { "ComStar", "Terra" },
+            { "Castile", "Asturias" },
+            { "Chainelane", "Far Reach" },
+            { "ClanBurrock", "Albion (Clan)" },
+            { "ClanCloudCobra", "Zara (Homer 2850+)" },
+            { "ClanCoyote", "Tamaron" },
+            { "ClanDiamondShark", "Strato Domingo" },
+            { "ClanFireMandrill", "Shadow" },
+            { "ClanGhostBear", "Arcadia (Clan)" },
+            { "ClanGoliathScorpion", "Dagda (Clan)" },
+            { "ClanHellsHorses", "Kirin" },
+            { "ClanIceHellion", "Hector" },
+            { "ClanJadeFalcon", "Ironhold" },
+            { "ClanNovaCat", "Barcella" },
+            { "ClansGeneric", "Strana Mechty" },
+            { "ClanSmokeJaguar", "Huntress" },
+            { "ClanSnowRaven", "Lum" },
+            { "ClanStarAdder", "Sheridan (Clan)" },
+            { "ClanSteelViper", "New Kent" },
+            { "ClanWolf", "Tiber (Clan)" },
+            { "Delphi", "New Delphi" },
+            { "Elysia", "Blackbone (Nyserta 3025+)" },
+            { "Hanse", "Bremen (HL)" },
+            { "JarnFolk", "Trondheim (JF)" },
+            { "Tortuga", "Tortuga Prime" },
+            { "Valkyrate", "Gotterdammerung" },
+            { "Axumite", "Thala" },
+            { "WordOfBlake", "EC3040-B42A" }
         };
 
-        private static ILookup<string, Faction> capitalsBySystemName = capitalsByFaction.ToLookup(pair => pair.Value, pair => pair.Key);
+        private static ILookup<string, string> capitalsBySystemName = capitalsByFaction.ToLookup(pair => pair.Value, pair => pair.Key);
         public static bool IsCapital(StarSystem system) {
             bool isCapital = false;
             try {
@@ -109,7 +109,7 @@ namespace GlobalDifficultyByCompany {
             return isCapital;
         }
 
-        public static string GetCapital(Faction faction) {
+        public static string GetCapital(string faction) {
             try {
                 if (capitalsByFaction.Keys.Contains(faction)) {
                     return capitalsByFaction[faction];
@@ -121,7 +121,7 @@ namespace GlobalDifficultyByCompany {
             return null;
         }
 
-        public static Faction GetFactionForCapital(StarSystem system) {
+        public static string GetFactionForCapital(StarSystem system) {
             try {
                 if (capitalsByFaction.Values.Contains(system.Name)) {
                     return capitalsByFaction.FirstOrDefault(x => x.Value == system.Name).Key;
@@ -130,7 +130,7 @@ namespace GlobalDifficultyByCompany {
             catch (Exception ex) {
                 Logger.LogError(ex);
             }
-            return Faction.INVALID_UNSET;
+            return FactionEnumeration.GetInvalidUnsetFactionValue().Name;
         }
 
     }

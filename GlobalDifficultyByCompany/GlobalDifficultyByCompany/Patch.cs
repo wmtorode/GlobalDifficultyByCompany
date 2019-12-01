@@ -38,7 +38,7 @@ namespace GlobalDifficultyByCompany {
             Settings settings = Helper.LoadSettings();
             if (settings.Mode == 2) {
                 foreach (StarSystem system in simGame.StarSystems) {
-                    StarSystem capital = simGame.StarSystems.Find(x => x.Name.Equals(Helper.GetCapital(system.Owner)));
+                    StarSystem capital = simGame.StarSystems.Find(x => x.Name.Equals(Helper.GetCapital(system.OwnerValue.Name)));
                     if (capital != null) {
                         StarSystemNode systemByID = __instance.GetSystemByID(system.ID);
                         StarSystemNode systemByID2 = __instance.GetSystemByID(capital.ID);
@@ -60,13 +60,20 @@ namespace GlobalDifficultyByCompany {
             try {
                 int baseDifficulty = 5;
                 GameInstance game = LazySingletonBehavior<UnityGameInstance>.Instance.Game;
-                Dictionary<Faction, int> allCareerFactionReputations = game.Simulation.GetAllCareerFactionReputations();
+                Dictionary<string, int> allCareerFactionReputations = new Dictionary<string, int>();
+                foreach (FactionValue faction in FactionEnumeration.FactionList)
+                {
+                    if (faction.DoesGainReputation)
+                    {
+                        allCareerFactionReputations.Add(faction.Name, game.Simulation.GetRawReputation(faction));
+                    }
+                }
                 Settings settings = Helper.LoadSettings();
                 int count = result.path.Count;
                 StarSystemNode starSystemNode = (StarSystemNode)result.path[0];
                 int rangeDifficulty = 0;
                 int repModifier = 0;
-                Faction repFaction = starSystemNode.System.Owner;
+                string repFaction = starSystemNode.System.OwnerValue.Name;
                 if (!Helper.IsCapital(starSystemNode.System)) {
                     rangeDifficulty = Mathf.RoundToInt((count - 1));
                 } else {
