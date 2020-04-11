@@ -106,6 +106,12 @@ namespace GlobalDifficultyByCompany {
                     List<MechDef> mechlist = __instance.ActiveMechs.Values.ToList();
                     mechlist = mechlist.OrderByDescending(x => Helper.CalculateCBillValue(x)).ToList();
                     int countedmechs = settings.NumberOfMechsCounted;
+                    if (__instance.CompanyStats.ContainsStatistic("BiggerDrops_AdditionalMechSlots") && countedmechs > 4)
+                    {
+                        int deploySize = 4 + __instance.CompanyStats.GetValue<int>("BiggerDrops_AdditionalMechSlots");
+                        countedmechs = Math.Min(deploySize, settings.NumberOfMechsCounted);
+                    }
+                    
                     if (mechlist.Count < settings.NumberOfMechsCounted) {
                         countedmechs = mechlist.Count;
                     }
