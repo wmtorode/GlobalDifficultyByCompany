@@ -121,6 +121,7 @@ namespace GlobalDifficultyByCompany {
 
                     float difficulty = totalMechWorth / settings.CostPerHalfSkull;
                     __result = Mathf.Min(10, Mathf.Round(difficulty));
+                    Logger.LogLine($"Setting Global difficulty to: {__result}, Counted Mechs: {countedmechs}, worth of counted mechs: {totalMechWorth}");
                 }
                 else {
                     __result = 0;
