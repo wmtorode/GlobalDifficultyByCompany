@@ -112,7 +112,7 @@ namespace GlobalDifficultyByCompany {
                         countedmechs = Math.Min(deploySize, settings.NumberOfMechsCounted);
                     }
                     
-                    if (mechlist.Count < settings.NumberOfMechsCounted) {
+                    if (mechlist.Count < countedmechs) {
                         countedmechs = mechlist.Count;
                     }
                     for (int i = 0; i < countedmechs; i++) {
