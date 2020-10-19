@@ -15,7 +15,7 @@ namespace GlobalDifficultyByCompany {
         static void Postfix(SimGameState __instance, ref int __result) {
             Settings settings = Helper.LoadSettings();
             if (settings.Mode == 0) {
-                __result = Mathf.RoundToInt(Mathf.Clamp(__instance.GlobalDifficulty, 0, 10));
+                __result = Mathf.RoundToInt(Mathf.Clamp(__instance.GlobalDifficulty, 0, 25));
             }
         }
     }
@@ -87,7 +87,7 @@ namespace GlobalDifficultyByCompany {
                     //Logger.LogLine("RepMissing: " + starSystemNode.System.Owner.ToString());
                     //Logger.LogLine("Def: " + starSystemNode.System.Def.Owner.ToString());
                 }
-                int endDifficulty = Mathf.Clamp(baseDifficulty + rangeDifficulty - repModifier, 1, 10);
+                int endDifficulty = Mathf.Clamp(baseDifficulty + rangeDifficulty - repModifier, 1, 25);
                 AccessTools.Field(typeof(StarSystemDef), "DefaultDifficulty").SetValue(starSystemNode.System.Def, endDifficulty);
             }catch(Exception e) {
                 Logger.LogError(e);
@@ -120,7 +120,7 @@ namespace GlobalDifficultyByCompany {
                     }
 
                     float difficulty = totalMechWorth / settings.CostPerHalfSkull;
-                    __result = Mathf.Min(10, Mathf.Round(difficulty));
+                    __result = Mathf.Min(25, Mathf.Round(difficulty));
                     Logger.LogLine($"Setting Global difficulty to: {__result}, Counted Mechs: {countedmechs}, worth of counted mechs: {totalMechWorth}");
                 }
                 else {
@@ -149,7 +149,7 @@ namespace GlobalDifficultyByCompany {
                     foreach (MechDef mech in mechs) {
                         totalMechWorth += Mathf.RoundToInt(Helper.CalculateCBillValue(mech));
                     }
-                    lanceRatingWidget.SetDifficulty(Mathf.Min(10, totalMechWorth / settings.CostPerHalfSkull));
+                    lanceRatingWidget.SetDifficulty(Mathf.Min(25, totalMechWorth / settings.CostPerHalfSkull));
                 }
             }
             catch (Exception e) {
