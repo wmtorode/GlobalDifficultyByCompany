@@ -149,7 +149,7 @@ namespace GlobalDifficultyByCompany {
                     foreach (MechDef mech in mechs) {
                         totalMechWorth += Mathf.RoundToInt(Helper.CalculateCBillValue(mech));
                     }
-                    lanceRatingWidget.SetDifficulty(Mathf.Min(25, totalMechWorth / settings.CostPerHalfSkull));
+                    lanceRatingWidget.SetDifficulty(Mathf.Min(10, totalMechWorth / settings.CostPerHalfSkull));
                 }
             }
             catch (Exception e) {
