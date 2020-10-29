@@ -172,4 +172,14 @@ namespace GlobalDifficultyByCompany {
             }
         }
     }
+
+    [HarmonyPatch(typeof(SGDifficultyIndicatorWidget), "SetDifficulty")]
+    public static class SGDifficultyIndicatorWidget_SetDifficulty
+    {
+
+        static void Prefix(SGDifficultyIndicatorWidget __instance, ref int difficulty)
+        {
+            difficulty = Mathf.Min(10, difficulty);
+        }
+    }
 }
